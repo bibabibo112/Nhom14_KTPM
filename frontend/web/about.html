@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giới thiệu - Thư viện AI</title>
+
+    <!-- Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #f8fafc;
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* ===================== HEADER ===================== */
+        .header {
+            background: linear-gradient(90deg, #004aad, #0073ff);
+            color: white;
+            padding: 10px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .library {
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .library i {
+            color: #ffdd57;
+            font-size: 22px;
+        }
+
+        /* TAGBAR CHUẨN ĐẸP */
+        .tagbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .tagbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding-bottom: 3px;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .tagbar a:hover {
+            color: #ffdd57;
+            border-bottom: 2px solid #ffdd57;
+        }
+
+        /* ===================== TOP LOGO ===================== */
+        .top-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 5%;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-area i {
+            font-size: 42px;
+            color: #004aad;
+        }
+
+        .logo-text h1 {
+            font-size: 28px;
+            color: #004aad;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        /* ===================== BANNER ===================== */
+        .page-banner {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), 
+                        url("https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=1600&q=80") no-repeat center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .banner-content {
+            text-align: center;
+            padding: 0 20px;
+            max-width: 800px;
+        }
+
+        .breadcrumb {
+            font-size: 15px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .breadcrumb a {
+            color: #ffdd57;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+        }
+
+        .breadcrumb i {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .banner-title {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .banner-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===================== MAIN CONTENT ===================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* GIỚI THIỆU CHUNG */
+        .story-section {
+            margin: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: #004aad;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #004aad, #0073ff);
+            border-radius: 2px;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .story-text p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #eef5ff, #f0f7ff);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #004aad;
+            margin-top: 30px;
+            box-shadow: 0 6px 20px rgba(0, 74, 173, 0.1);
+        }
+
+        .highlight-box strong {
+            color: #004aad;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .story-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* TEAM SECTION */
+        .team-section {
+            background: #f4f7fc;
+            padding: 80px 0;
+            margin: 60px 0;
+            border-radius: 20px;
+        }
+
+        .team-intro {
+            text-align: center;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+
+        .backend-card::before {
+            background: linear-gradient(to right, #8b5cf6, #a78bfa);
+        }
+
+        .frontend-card::before {
+            background: linear-gradient(to right, #10b981, #34d399);
+        }
+
+        .avatar-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: white;
+            border: 5px solid white;
+            box-shadow: 0 6px 15px rgba(0, 74, 173, 0.15);
+        }
+
+        .backend-card .avatar-circle {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        }
+
+        .frontend-card .avatar-circle {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+
+        .team-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #004aad;
+            margin-bottom: 10px;
+        }
+
+        .team-role {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .backend-card .team-role {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8b5cf6;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .frontend-card .team-role {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* PRODUCT INFO */
+        .product-section {
+            background: linear-gradient(135deg, rgba(0, 74, 173, 0.05), rgba(0, 115, 255, 0.05));
+            padding: 60px;
+            border-radius: 20px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .product-section h3 {
+            font-size: 32px;
+            color: #004aad;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .product-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #004aad, #0073ff);
+            border-radius: 2px;
+        }
+
+        .product-info p {
+            font-size: 18px;
+            color: #555;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .product-info i {
+            color: #004aad;
+            font-size: 20px;
+            width: 24px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: linear-gradient(135deg, #1f2d3d, #2d3748);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .footer-section h3 {
+            color: #4db8ff;
+            font-size: 22px;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .footer-section p {
+            margin: 12px 0;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-section i {
+            color: #4db8ff;
+            width: 20px;
+            font-size: 18px;
+        }
+
+        .footer-info {
+            text-align: right;
+        }
+
+        .footer-info h4 {
+            color: #4db8ff;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 0;
+            }
+            
+            .tagbar ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .logo-area {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .banner-title {
+                font-size: 36px;
+            }
+            
+            .banner-subtitle {
+                font-size: 16px;
+            }
+            
+            .story-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .story-image img {
+                height: 300px;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .product-section {
+                padding: 40px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-info {
+                text-align: center;
+            }
+            
+            .footer-section p {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner-title {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .product-section h3 {
+                font-size: 24px;
+            }
+            
+            .product-info p {
+                font-size: 16px;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===================== HEADER ===================== -->
+    <header class="header">
+        <div class="container">
+            <h3 class="library"><i class="fa-solid fa-robot"></i> Thư Viện AI</h3>
+
+            <nav class="tagbar">
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="about.html">Giới thiệu</a></li>
+                    <li><a href="index.html">Sách</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================== LOGO ===================== -->
+    <header class="top-header">
+        <div class="logo-area">
+            <i class="fa-solid fa-book-open-reader"></i>
+            <div class="logo-text">
+                <h1>Thư viện Thông minh AI</h1>
+                <span>KẾT NỐI TRI THỨC – KIẾN TẠO TƯƠNG LAI</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===================== BANNER ===================== -->
+    <section class="page-banner">
+        <div class="banner-content">
+            <p class="breadcrumb">
+                <a href="index.html"><i class="fas fa-home"></i> Trang chủ</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Giới thiệu</span>
+            </p>
+            <h2 class="banner-title">GIỚI THIỆU</h2>
+            <p class="banner-subtitle">Khám phá hành trình xây dựng hệ thống thư viện thông minh</p>
+        </div>
+    </section>
+
+    <!-- ===================== MAIN CONTENT ===================== -->
+    <main class="main-content">
+        <!-- PHẦN GIỚI THIỆU CHI TIẾT - ĐẨY LÊN TRƯỚC -->
+        <section class="story-section">
+            <h2 class="section-title">Câu Chuyện Của Chúng Tôi</h2>
+            
+            <div class="story-content">
+                <div class="story-text">
+                    <p>
+                        <strong>Thư viện Thông minh AI</strong> là dự án đột phá được khởi xướng bởi 
+                        <strong>Nhóm 12</strong> - một tập thể sinh viên trẻ đầy nhiệt huyết thuộc 
+                        <strong>Khoa Công nghệ Thông tin, Trường Đại học Công nghiệp Hà Nội</strong>. 
+                        Xuất phát từ thực tế nhu cầu học tập ngày càng cao trong kỷ nguyên số, chúng tôi 
+                        nhận thấy sự thiếu hụt của một nền tảng thư viện số hiện đại, thông minh và thân thiện 
+                        với người dùng.
+                    </p>
+                    
+                    <p>
+                        Với sứ mệnh "Kết nối tri thức - Kiến tạo tương lai", chúng tôi đã dành nhiều tháng 
+                        nghiên cứu và phát triển để tạo ra một hệ thống không chỉ đơn thuần là nơi lưu trữ sách, 
+                        mà còn là một trợ lý học tập thông minh. Ứng dụng công nghệ AI tiên tiến, UniLib có khả 
+                        năng gợi ý tài liệu phù hợp, hỗ trợ tìm kiếm thông minh và cá nhân hóa trải nghiệm đọc 
+                        cho từng người dùng.
+                    </p>
+                    
+                    <p>
+                        Dự án là kết tinh của quá trình học tập, nghiên cứu và đam mê công nghệ của 5 thành viên 
+                        xuất sắc. Mỗi người mang đến những thế mạnh riêng, cùng nhau tạo nên một sản phẩm hoàn chỉnh,
+                        hiện đại và hữu ích cho cộng đồng sinh viên.
+                    </p>
+                    
+                    <div class="highlight-box">
+                        <strong><i class="fas fa-bullseye"></i> TẦM NHÌN & SỨ MỆNH</strong>
+                        <p>Trở thành nền tảng thư viện số hàng đầu tại Việt Nam, ứng dụng trí tuệ nhân tạo để cách mạng hóa 
+                        việc học tập và nghiên cứu, mang đến trải nghiệm truy cập tri thức thuận tiện, thông minh và cá nhân hóa 
+                        cho mọi sinh viên.</p>
+                    </div>
+                </div>
+                
+                <div class="story-image">
+                    <img 
+                        src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=900&q=80" 
+                        alt="Thư viện thông minh AI"
+                    >
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== TEAM SECTION ===================== -->
+        <section class="team-section">
+            <div class="container">
+                <h2 class="section-title" style="border: none;">ĐỘI NGŨ PHÁT TRIỂN</h2>
+                
+                <p class="team-intro">
+                    Sản phẩm được tạo nên từ sự hợp tác sáng tạo và nỗ lực không ngừng của 5 thành viên - 
+                    3 Backend Developer và 2 Frontend Developer
+                </p>
+
+                <!-- BACKEND TEAM - 3 NGƯỜI TRƯỚC -->
+                <h3 style="text-align: center; color: #8b5cf6; margin: 40px 0 30px; font-size: 24px;">
+                    <i class="fas fa-server"></i> Backend Development Team
+                </h3>
+                
+                <div class="team-grid">
+                    <!-- Backend 1 -->
+                    <div class="team-card backend-card">
+                        <div class="avatar-circle">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h4>Vũ Thị Thanh Hằng</h4>
+                        <div class="team-role">Backend Developer</div>
+                    </div>
+
+                    <!-- Backend 2 -->
+                    <div class="team-card backend-card">
+                        <div class="avatar-circle">
+                            <i class="fa-solid fa-server"></i>
+                        </div>
+                        <h4>Nguyễn Thị Thu Hòa</h4>
+                        <div class="team-role">Backend Developer</div>
+                    </div>
+
+                    <!-- Backend 3 -->
+                    <div class="team-card backend-card">
+                        <div class="avatar-circle">
+                            <i class="fa-solid fa-shield-alt"></i>
+                        </div>
+                        <h4>Phạm Minh Phương</h4>
+                        <div class="team-role">Backend Developer</div>
+                    </div>
+                </div>
+
+                <!-- FRONTEND TEAM - 2 NGƯỜI SAU -->
+                <h3 style="text-align: center; color: #10b981; margin: 60px 0 30px; font-size: 24px;">
+                    <i class="fas fa-palette"></i> Frontend Development Team
+                </h3>
+                
+                <div class="team-grid">
+                    <!-- Frontend 1 -->
+                    <div class="team-card frontend-card">
+                        <div class="avatar-circle">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h4>Dương Hoàng Long</h4>
+                        <div class="team-role">Frontend Developer</div>
+                    </div>
+
+                    <!-- Frontend 2 -->
+                    <div class="team-card frontend-card">
+                        <div class="avatar-circle">
+                            <i class="fa-solid fa-laptop-code"></i>
+                        </div>
+                        <h4>Phạm Đức Kiên</h4>
+                        <div class="team-role">Frontend Developer</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== PRODUCT INFO ===================== -->
+        <section class="product-section">
+            <h3>SẢN PHẨM CỦA CHÚNG TÔI</h3>
+            <div class="product-info">
+                <p>
+                    <i class="fas fa-book"></i>
+                    <strong>Thư viện Thông minh AI</strong>
+                </p>
+                <p>
+                    <i class="fas fa-graduation-cap"></i>
+                    Lớp: Mạng máy tính và Truyền thông dữ liệu K18
+                </p>
+                <p>
+                    <i class="fas fa-university"></i>
+                    Trường Đại học Công nghiệp Hà Nội
+                </p>
+                <p>
+                    <i class="fas fa-laptop-code"></i>
+                    Dự án học phần Phát triển ứng dụng Web
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>THÔNG TIN LIÊN HỆ</h3>
+                <p>
+                    <i class="fa-solid fa-envelope"></i> 
+                    Email: nhom12@gmail.com
+                </p>
+                <p>
+                    <i class="fa-solid fa-phone"></i>
+                    Hotline: 1234 567 890
+                </p>
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    Đại học Công nghiệp Hà Nội
+                </p>
+                <p>
+                    <i class="fa-solid fa-users"></i>
+                    Nhóm 12 - Khoa Công nghệ Thông tin
+                </p>
+            </div>
+
+            <div class="footer-section footer-info">
+                <h4>SẢN PHẨM CỦA NHÓM 12</h4>
+                <p><strong>Thư viện Thông minh AI</strong></p>
+                <p>Lớp: Mạng máy tính và Truyền thông dữ liệu K18</p>
+                <p>Đại học Công nghiệp Hà Nội</p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            © 2025 Thư viện Thông minh AI. Tất cả các quyền được bảo lưu.
+            <br>
+            Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> by Nhóm 12
+        </div>
+    </footer>
+
+    <script>
+        // Team cards animation
+        const teamCards = document.querySelectorAll('.team-card');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        // Set initial state and observe team cards
+        teamCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+            } else {
+                header.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.15)';
+            }
+        });
+
+        // Active nav link
+        const currentPage = window.location.pathname.split('/').pop();
+        document.querySelectorAll('.tagbar a').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.style.color = '#ffdd57';
+                link.style.borderBottom = '2px solid #ffdd57';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,321 @@
+/* ========================================================
+   GLOBAL STYLE – Tone Xanh Dương giống trang chủ UniLib
+======================================================== */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(180deg, #0137a8, #e7f0ff, #0040c1);
+  color: #333;
+  padding-bottom: 40px;
+}
+
+/* ========================================================
+   HEADER – Thanh xanh dương, chữ trắng
+======================================================== */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: #0066ff;
+  /* giống thanh menu xanh */
+  box-shadow: 0 4px 15px rgba(0, 0, 80, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo-box {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #e6d32c, #b7b91a);
+  /* icon vàng như logo sách */
+  color: #003366;
+  border-radius: 12px;
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 👉 CHỮ UNILIB PAYMENT THÀNH MÀU TRẮNG */
+.topbar h1 {
+  color: #ffffff;
+}
+
+nav a {
+  margin-left: 22px;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.25s;
+}
+
+nav a:hover {
+  color: #ffeb3b;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+}
+
+/* ========================================================
+   LAYOUT
+======================================================== */
+.container {
+  margin: 40px auto;
+  width: 90%;
+  max-width: 1400px;
+  display: flex;
+  gap: 45px;
+}
+
+/* ========================================================
+   LEFT SIDE – PAYMENT BOX
+======================================================== */
+.pay-box {
+  flex: 1;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 70, 200, 0.18);
+  border: 1px solid #d3e2ff;
+}
+
+.pay-box h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #0052cc;
+  /* xanh đậm giống chữ trên hero */
+}
+
+.sub {
+  margin-top: -8px;
+  margin-bottom: 18px;
+  color: #555;
+}
+
+.pay-box label {
+  font-weight: 600;
+  color: #444;
+}
+
+.pay-box input,
+.pay-box select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #bed2ff;
+  margin-bottom: 18px;
+  background: #f5f8ff;
+  font-size: 15px;
+  transition: all 0.25s;
+}
+
+.pay-box input:focus,
+.pay-box select:focus {
+  border-color: #0066ff;
+  box-shadow: 0 0 0 4px #dbe7ff;
+  outline: none;
+}
+
+/* ========================================================
+   BUTTONS – Xanh dương & Xanh success
+======================================================== */
+.btn-main {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #0052cc, #007bff);
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 90, 255, 0.35);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.btn-main:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 90, 255, 0.45);
+}
+
+.btn-success {
+  margin-top: 18px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: #27c281;
+  color: white;
+  border: none;
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(39, 194, 129, 0.35);
+  font-weight: 600;
+}
+
+.btn-success:hover {
+  background: #1da56c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(39, 194, 129, 0.45);
+}
+
+/* ========================================================
+   RIGHT SIDE – SUMMARY BOX
+======================================================== */
+.summary-box {
+  width: 380px;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 5px 30px rgba(0, 70, 200, 0.15);
+  border: 1px solid #d3e2ff;
+}
+
+.summary-box h3 {
+  border-bottom: 2px solid #e2ebff;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #0052cc;
+}
+
+.summary-box p {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 5px;
+  border-bottom: 1px dashed #e7edff;
+}
+
+.summary-box strong {
+  color: #555;
+  font-weight: 400;
+}
+
+.summary-box span {
+  font-weight: 600;
+  color: #222;
+}
+
+#s_amount {
+  color: #0052cc;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+/* ========================================================
+   IMAGE AFTER SUMMARY
+======================================================== */
+.image-placeholder {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e2ebff;
+}
+
+#payment_success_image {
+  max-width: 80%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 70, 200, 0.22);
+}
+
+/* ========================================================
+   QR CODE AREA – viền xanh
+======================================================== */
+.qr-area {
+  margin-top: 25px;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.qr-area h3 {
+  color: #0052cc;
+}
+
+.qr-area img {
+  width: 260px;
+  border-radius: 15px;
+  box-shadow: 0 0 18px rgba(0, 80, 220, 0.35);
+  border: 2px solid #0066ff;
+  margin-top: 12px;
+}
+
+.hide {
+  display: none;
+}
+
+/* ========================================================
+   SUCCESS POPUP – xanh dương
+======================================================== */
+.success-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 80, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 22px;
+  box-shadow: 0 5px 25px rgba(0, 70, 200, 0.3);
+  text-align: center;
+  animation: zoomIn 0.3s ease-out;
+}
+
+.popup-content h2 {
+  margin: 0;
+  color: #0052cc;
+  font-size: 26px;
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========================================================
+   RESPONSIVE
+======================================================== */
+@media (max-width: 900px) {
+  .topbar {
+    padding: 18px 20px;
+  }
+
+  .container {
+    flex-direction: column;
+    width: 95%;
+  }
+
+  .summary-box {
+    width: 100%;
+  }
+
+  #payment_success_image {
+    max-width: 60%;
+  }
+}

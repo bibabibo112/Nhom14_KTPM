@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thư viện thông minh AI</title>
+
+    <!-- Font & Icon -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="borrow.css" />
+    <link rel="stylesheet" href="chatbox.css" />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="container">
+        <h3 class="library">
+          <i class="fa-solid fa-robot"></i> Thư viện thông minh AI
+        </h3>
+        <nav class="tagbar">
+          <ul>
+            <li><a href="#Home">Trang chủ</a></li>
+            <li><a href="#Intro">Giới thiệu</a></li>
+            <li><a href="#Books">Sách</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="payment.html">Thanh toán</a></li>
+            <li class="borrow-menu">
+              <a href="javascript:void(0)" onclick="toggleBorrowedList()">
+                <i class="fa-solid fa-book"></i>
+                Đã mượn (<span id="borrowCount">0</span>)
+              </a>
+              <div id="borrowedDropdown" class="borrowed-dropdown">
+                <p style="text-align: center; color: #777">
+                  Chưa có sách nào 📖
+                </p>
+              </div>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="logout()">Đăng xuất</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="Home">
+      <img
+        src="./hinhanh/AI-Libraries-Cover.webp"
+        alt="Thư viện AI"
+        class="hero-img"
+      />
+      <div class="overlay">
+        <h1>Tra cứu sách thông minh bằng AI</h1>
+        <p>Nhanh chóng • Chính xác • Cá nhân hóa</p>
+        <div class="search-box">
+          <input
+            type="text"
+            id="keyword"
+            placeholder="Tìm kiếm sách, tài liệu, ebook..."
+          />
+          <button onclick="searchBooks()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- KẾT QUẢ TÌM KIẾM -->
+    <section id="Books">
+      <h2 class="section-title">📚 Kết quả tìm kiếm</h2>
+      <div class="results" id="results">
+        <p>Nhập từ khóa để bắt đầu tìm kiếm...</p>
+      </div>
+    </section>
+
+    <!-- GIỚI THIỆU -->
+    <section id="Intro" class="intro-section">
+      <div class="intro-container">
+        <div class="intro-text">
+          <h2>📘 Giới thiệu về Thư viện Thông minh AI</h2>
+          <p>
+            Thư viện Thông minh AI được xây dựng nhằm mang đến trải nghiệm tra
+            cứu và học tập hiện đại. Với sự hỗ trợ của
+            <strong>trí tuệ nhân tạo (AI)</strong>, người dùng có thể tìm kiếm
+            tài liệu nhanh chóng, mượn – trả sách tự động, và thậm chí trò
+            chuyện với AI để hiểu sâu hơn về nội dung từng cuốn sách.
+          </p>
+          <p>
+            Dự án được phát triển bởi sinh viên Đại học Công nghiệp Hà Nội, với
+            mục tiêu kết hợp công nghệ và học tập để tạo nên một môi trường đọc
+            sách thông minh, tiện lợi và thân thiện.
+          </p>
+          <button class="btn-explore" onclick="window.location='#Books'">
+            Khám phá ngay
+          </button>
+        </div>
+
+        <div class="intro-image">
+          <img
+            src="./hinhanh/ACQ_BEST_EVIDENCE_IMAGE.jpg"
+            alt="Giới thiệu Thư viện AI"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- TÍNH NĂNG -->
+    <section class="features">
+      <div class="feature-card">
+        <img src="./hinhanh/aisearch.jpeg" alt="AI Search" />
+        <h3>Tìm kiếm bằng AI</h3>
+        <p>AI hiểu ngữ nghĩa, giúp tìm sách nhanh và chính xác hơn.</p>
+      </div>
+      <div class="feature-card">
+        <img src="./hinhanh/ebook.jpg" alt="Ebook" />
+        <h3>Tài nguyên điện tử</h3>
+        <p>Kho e-book, research paper và tạp chí học thuật đa dạng.</p>
+      </div>
+      <div class="feature-card">
+        <img src="./hinhanh/tudong.jpg" alt="Borrow system" />
+        <h3>Mượn – Trả tự động</h3>
+        <p>Tự động ghi nhận mượn – trả bằng mã QR và AI nhận diện.</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>© 2025 - Thư viện thông minh AI | Đại học Công nghiệp Hà Nội</p>
+      <a href="tel:0395566905" style="color: #fff; text-decoration: none"
+        >Itel: 0395566905</a
+      >
+    </footer>
+
+    <!-- 📖 POPUP XEM SÁCH -->
+    <div id="bookPopup" class="book-popup" style="display: none">
+      <div class="popup-content">
+        <button class="close-popup" onclick="closePopup()">&times;</button>
+        <img id="popupThumbnail" class="popup-img" src="" alt="Bìa sách" />
+        <h2 id="popupTitle"></h2>
+        <p id="popupAuthor"></p>
+        <p id="popupPublished"></p>
+        <p id="popupDescription" class="popup-desc"></p>
+        <a id="popupReadLink" class="popup-link" target="_blank"
+          >📖 Đọc trực tuyến</a
+        >
+      </div>
+    </div>
+
+    <!-- SCRIPT CHÍNH -->
+    <script>
+      // 🔑 Khai báo Google Books API Key
+      const GOOGLE_BOOKS_API_KEY = "AIzaSyBl-EN3DO9qhzbfRQ2vW_Xyt0IP3LdR68I";
+
+      const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+      const THIRTY_DAYS_MS = 30 * ONE_DAY_MS;
+      let borrowedBooks = [];
+
+      /* 🔎 Tìm kiếm qua Google Books API (Đã thêm API Key) */
+      async function searchBooks() {
+        const keyword = document.getElementById("keyword").value.trim();
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML =
+          "<p style='text-align:center;color:#555;'>🔎 Đang tìm kiếm...</p>";
+
+        if (!keyword) {
+          resultsDiv.innerHTML =
+            "<p style='text-align:center;color:#777;'>Vui lòng nhập từ khóa để tìm sách!</p>";
+          return;
+        }
+
+        const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(
+          keyword
+        )}&key=${GOOGLE_BOOKS_API_KEY}`;
+
+        try {
+          const res = await fetch(url);
+          const data = await res.json();
+
+          if (!data.items || data.items.length === 0) {
+            resultsDiv.innerHTML =
+              "<p style='text-align:center;color:#777;'>Không tìm thấy sách nào.</p>";
+            return;
+          }
+
+          resultsDiv.innerHTML = "";
+
+          data.items.forEach((book) => {
+            const info = book.volumeInfo || {};
+            const div = document.createElement("div");
+            div.className = "book";
+
+            const title = info.title || "Không có tiêu đề";
+            const authors = Array.isArray(info.authors)
+              ? info.authors.join(", ")
+              : info.authors || "Không rõ tác giả";
+
+            let thumbnail =
+              info.imageLinks?.thumbnail ||
+              "https://via.placeholder.com/120x170?text=No+Cover";
+            if (thumbnail.startsWith("http://")) {
+              thumbnail = thumbnail.replace("http://", "https://");
+            }
+
+            const publisher = info.publisher || "";
+            const publishedDate = info.publishedDate || "";
+
+            div.innerHTML = `
+              <img src="${thumbnail}" alt="Bìa sách">
+              <h4>${title}</h4>
+              <p><i>${authors}</i></p>
+              <p>${publisher} (${publishedDate})</p>
+              <button class="borrow-btn">📘 Mượn sách</button>
+            `;
+
+            // Mở chi tiết khi click cả khung
+            div.addEventListener("click", () => {
+              openBookDetails(title, authors, thumbnail, info.previewLink);
+            });
+
+            // Mượn sách
+            const borrowBtn = div.querySelector(".borrow-btn");
+            borrowBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              borrowBookFromGoogle({
+                title: title,
+                author: authors,
+                image: thumbnail,
+                isbn: info.industryIdentifiers?.[0]?.identifier || null,
+              });
+            });
+
+            resultsDiv.appendChild(div);
+          });
+        } catch (err) {
+          console.error("searchBooks error:", err);
+          resultsDiv.innerHTML =
+            "<p style='color:red;text-align:center;'>❌ Lỗi khi tải dữ liệu từ API</p>";
+        }
+      }
+
+      /* 📘 MƯỢN SÁCH TỪ GOOGLE BOOKS */
+      async function borrowBookFromGoogle(book) {
+        try {
+          const res = await fetch("/borrow", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title: book.title,
+              author: book.author || "Không rõ",
+              image: book.image || book.imageLinks?.thumbnail || null,
+              isbn: book.isbn || book.industryIdentifiers?.[0]?.identifier || null,
+            }),
+          });
+
+          const data = await res.json();
+          alert(data.message);
+
+          if (data.status === "success") {
+            const tempBookId = data.book_id || Date.now();
+            
+            borrowedBooks.push({
+              book_id: tempBookId,
+              title: book.title,
+              author: book.author || "Không rõ",
+              image: book.image || book.imageLinks?.thumbnail,
+              borrowDate: Date.now(),
+            });
+
+            localStorage.setItem("borrowedBooks", JSON.stringify(borrowedBooks));
+            updateBorrowedDropdown();
+            document.getElementById("borrowCount").textContent = borrowedBooks.length;
+          }
+        } catch (err) {
+          console.error("Lỗi khi mượn sách:", err);
+          alert("Không thể mượn sách!");
+        }
+      }
+
+      /* 📗 TRẢ SÁCH */
+      async function returnBook(book_id) {
+        if (!confirm("Bạn có chắc muốn trả sách này không?")) return;
+
+        try {
+          const res = await fetch("/return", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ book_id: parseInt(book_id) }),
+          });
+
+          const data = await res.json();
+          alert(data.message);
+
+          if (data.status === "success") {
+            borrowedBooks = borrowedBooks.filter((b) => b.book_id != book_id);
+            localStorage.setItem("borrowedBooks", JSON.stringify(borrowedBooks));
+            updateBorrowedDropdown();
+            document.getElementById("borrowCount").textContent = borrowedBooks.length;
+          }
+        } catch (err) {
+          console.error("Lỗi khi trả sách:", err);
+          alert("Không thể trả sách!");
+        }
+      }
+
+      /* 📖 XEM CHI TIẾT SÁCH (Đã thêm API Key) */
+      async function openBookDetails(title, author, thumbnail, previewLink) {
+        const popup = document.getElementById("bookPopup");
+        popup.style.display = "flex";
+        document.getElementById("popupTitle").textContent = title;
+        document.getElementById("popupAuthor").textContent =
+          "Tác giả: " + author;
+        document.getElementById("popupThumbnail").src =
+          thumbnail || "https://via.placeholder.com/150x200?text=No+Cover";
+        document.getElementById("popupDescription").textContent =
+          "🔎 Đang tải mô tả...";
+
+        try {
+          const res = await fetch(
+            `https://www.googleapis.com/books/v1/volumes?q=intitle:${encodeURIComponent(
+              title
+            )}+inauthor:${encodeURIComponent(author)}&key=${GOOGLE_BOOKS_API_KEY}`
+          );
+          const data = await res.json();
+          const info = data.items?.[0]?.volumeInfo;
+          document.getElementById("popupPublished").textContent =
+            info?.publishedDate
+              ? "📅 Ngày xuất bản: " + info.publishedDate
+              : "";
+          document.getElementById("popupDescription").textContent =
+            info?.description || "Không có mô tả chi tiết cho cuốn sách này.";
+          const readLink = document.getElementById("popupReadLink");
+          readLink.href = info?.previewLink || previewLink || "#";
+          readLink.style.display =
+            info?.previewLink || previewLink ? "inline-block" : "none";
+        } catch {
+          document.getElementById("popupDescription").textContent =
+            "Không thể tải mô tả sách.";
+        }
+      }
+
+      function closePopup() {
+        document.getElementById("bookPopup").style.display = "none";
+      }
+
+      /* 📋 CẬP NHẬT DANH SÁCH ĐÃ MƯỢN */
+      async function updateBorrowedDropdown() {
+        const dropdown = document.getElementById("borrowedDropdown");
+        const count = document.getElementById("borrowCount");
+        
+        try {
+            const res = await fetch("/api/user/borrowed-books", {
+                credentials: "include"
+            });
+            
+            if (res.ok) {
+                const data = await res.json();
+                if (data.status === "success") {
+                    borrowedBooks = data.books.map(book => ({
+                        book_id: book.book_id,
+                        title: book.title,
+                        author: book.author,
+                        image: book.image,
+                        borrowDate: book.borrow_date ? new Date(book.borrow_date).getTime() : Date.now()
+                    }));
+                    
+                    localStorage.setItem("borrowedBooks", JSON.stringify(borrowedBooks));
+                }
+            }
+        } catch (err) {
+            console.error("Lỗi khi lấy danh sách sách đã mượn:", err);
+            const stored = localStorage.getItem("borrowedBooks");
+            if (stored) {
+                borrowedBooks = JSON.parse(stored);
+            }
+        }
+        
+        count.textContent = borrowedBooks.length;
+        
+        if (borrowedBooks.length === 0) {
+            dropdown.innerHTML = "<p style='text-align:center;color:#777;'>Chưa có sách nào 📖</p>";
+            return;
+        }
+        
+        const now = Date.now();
+        dropdown.innerHTML = borrowedBooks
+            .map((b) => {
+                const remaining = Math.ceil(
+                    (THIRTY_DAYS_MS - (now - b.borrowDate)) / ONE_DAY_MS
+                );
+                const status = remaining > 0
+                    ? `<span style='color:green;'>Còn ${remaining} ngày</span>`
+                    : `<span style='color:red;'>Quá hạn</span>`;
+
+                const imgSrc = b.image && b.image.startsWith("http")
+                    ? b.image
+                    : "./hinhanh/no-cover.png";
+
+                return `
+                    <div class="borrowed-item">
+                        <img src="${imgSrc}" style="width:60px;height:80px;object-fit:cover;border-radius:6px;margin-right:10px;">
+                        <div style="flex:1;">
+                            <strong>${b.title}</strong><br>
+                            <i>${b.author}</i><br>
+                            ${status}
+                        </div>
+                        <button class="return-btn" onclick="returnBook(${b.book_id})">Trả</button>
+                    </div>`;
+            })
+            .join("");
+      }
+
+      /* 📜 ẨN/HIỆN DANH SÁCH ĐÃ MƯỢN */
+      function toggleBorrowedList() {
+        const dropdown = document.getElementById("borrowedDropdown");
+        dropdown.classList.toggle("show");
+      }
+
+      /* ⏰ KIỂM TRA SÁCH QUÁ HẠN */
+      function checkOverdueBooks() {
+        const now = Date.now();
+        borrowedBooks.forEach((book) => {
+          if (now - book.borrowDate > THIRTY_DAYS_MS) {
+            console.log(`Sách "${book.title}" đã quá hạn trả!`);
+          }
+        });
+      }
+
+      /* 🚪 ĐĂNG XUẤT */
+      function logout() {
+        localStorage.removeItem("borrowedBooks");
+        window.location.href = "SignUp_LogIn_Form.html";
+      }
+
+      /* 🚀 KHỞI TẠO */
+      window.addEventListener("load", () => {
+        const stored = localStorage.getItem("borrowedBooks");
+        if (stored) {
+          try {
+            borrowedBooks = JSON.parse(stored);
+            borrowedBooks.forEach(book => {
+              book.book_id = parseInt(book.book_id) || book.book_id;
+            });
+          } catch (e) {
+            console.error("Lỗi khi parse localStorage:", e);
+            borrowedBooks = [];
+          }
+        }
+        
+        updateBorrowedDropdown();
+        checkOverdueBooks();
+        
+        setInterval(() => {
+          checkOverdueBooks();
+        }, 60000);
+      });
+
+      // Đóng dropdown khi click ra ngoài
+      document.addEventListener("click", function (event) {
+        const dropdown = document.getElementById("borrowedDropdown");
+        const borrowMenu = document.querySelector(".borrow-menu");
+        
+        if (!borrowMenu.contains(event.target)) {
+          dropdown.classList.remove("show");
+        }
+      });
+    </script>
+
+    <!-- 💬 CHATBOX AI -->
+    <div id="chat-toggle" class="chat-toggle" onclick="toggleChat()">💬</div>
+    <div id="chat-window" class="chat-window">
+      <div class="chat-header">
+        Trợ lý AI
+        <button onclick="toggleChat()">×</button>
+      </div>
+      <div id="chat-messages" class="chat-messages">
+        <div class="bot-message">
+          Xin chào 👋! Mình là trợ lý AI của Thư viện. Bạn muốn mình giúp gì nào?
+        </div>
+      </div>
+      <div class="chat-input">
+        <input
+          type="text"
+          id="userMessage"
+          placeholder="Nhập tin nhắn..."
+          onkeypress="if(event.key==='Enter') sendMessage()"
+        />
+        <button onclick="sendMessage()">Gửi</button>
+      </div>
+    </div>
+
+    <script>
+      function toggleChat() {
+        const chatWindow = document.getElementById("chat-window");
+        const toggleBtn = document.getElementById("chat-toggle");
+        if (chatWindow.style.display === "flex") {
+          chatWindow.style.display = "none";
+          toggleBtn.style.transform = "scale(1)";
+        } else {
+          chatWindow.style.display = "flex";
+          chatWindow.style.flexDirection = "column";
+          toggleBtn.style.transform = "rotate(10deg)";
+        }
+      }
+
+      async function sendMessage() {
+          const input = document.getElementById("userMessage");
+          const chatMessages = document.getElementById("chat-messages");
+          const message = input.value.trim();
+          
+          if (!message) return;
+
+          const userDiv = document.createElement("div");
+          userDiv.className = "user-message";
+          userDiv.textContent = message;
+          chatMessages.appendChild(userDiv);
+          input.value = "";
+
+          const botDiv = document.createElement("div");
+          botDiv.className = "bot-message";
+          botDiv.textContent = "💭 AI đang suy nghĩ...";
+          chatMessages.appendChild(botDiv);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+
+          try {
+              console.log("📡 Đang gọi chatbot với message:", message);
+              
+              const response = await fetch("/chat", {
+                  method: "POST",
+                  headers: { 
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify({ message: message })
+              });
+
+              console.log("📡 Response status:", response.status);
+              
+              if (!response.ok) {
+                  throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+              }
+
+              const data = await response.json();
+              console.log("🤖 Chatbot response:", data);
+              
+              if (data.reply) {
+                  botDiv.textContent = data.reply;
+              } else if (data.error) {
+                  botDiv.textContent = "❌ Lỗi: " + data.error;
+              } else {
+                  botDiv.textContent = "⚠️ Không có phản hồi";
+              }
+              
+          } catch (error) {
+              console.error("❌ Lỗi chatbot:", error);
+              botDiv.innerHTML = `
+                  ❌ Không thể kết nối đến chatbot!<br>
+                  <small>${error.message}</small><br>
+                  <button onclick="testChatbot()" style="margin-top:5px;padding:5px 10px;font-size:12px;">
+                      Test kết nối
+                  </button>
+              `;
+          }
+
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      async function testChatbot() {
+          try {
+              const response = await fetch("/chat", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ message: "test" })
+              });
+              alert(`Test: ${response.status} - ${response.statusText}`);
+          } catch (e) {
+              alert(`Test failed: ${e.message}`);
+          }
+      }
+    </script>
+  </body>
+</html>

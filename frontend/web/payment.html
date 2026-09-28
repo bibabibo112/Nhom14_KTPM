@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Cổng thanh toán UNILIB</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="payment.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="logo-box">U</div>
+    <h1>UNILIB PAYMENT</h1>
+
+    <nav>
+      <a href="web/index.html">Trang chủ</a>
+      <a href="about.html">About Us</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="pay-box">
+      <h2>💳 Thanh toán đặt cọc mượn sách</h2>
+      <p class="sub">Thanh toán nhanh – an toàn – xác nhận tức thì.</p>
+
+      <label>Họ và tên</label>
+      <input id="user_name" type="text" placeholder="Nhập họ tên đầy đủ" />
+
+      <label>Số tiền (VND)</label>
+      <input id="amount" type="number" placeholder="VD: 50000" />
+
+      <label>Phương thức thanh toán</label>
+      <select id="method">
+        <option value="QR Banking">QR Banking</option>
+        <option value="Momo">Momo</option>
+        <option value="ATM">ATM</option>
+        <option value="VISA">VISA</option>
+      </select>
+
+      <button id="createQRBtn" class="btn-main">Tạo mã QR</button>
+
+      <div id="qrBox" class="qr-area hide">
+        <h3>Mã QR thanh toán</h3>
+        <img id="qrImg" />
+      </div>
+
+      <button id="confirmPaymentBtn" class="btn-success">
+        ✔ Tôi đã thanh toán
+      </button>
+    </div>
+
+    <div class="summary-box">
+      <h3>📄 Tóm tắt giao dịch</h3>
+
+      <p><strong>Người thanh toán:</strong> <span id="s_name">-</span></p>
+      <p><strong>Số tiền:</strong> <span id="s_amount">-</span> VND</p>
+      <p><strong>Phương thức:</strong> <span id="s_method">-</span></p>
+      <p><strong>Thời gian:</strong> <span id="s_time">-</span></p>
+
+      <div class="image-placeholder">
+        <img id="payment_success_image" src="payment-success.png" alt="Thanh toán thành công" class="hide" />
+      </div>
+    </div>
+  </main>
+
+  <script src="payment.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,379 @@
+/* 📚 --- Dropdown menu: Danh sách sách đã mượn --- */
+.borrow-menu {
+  position: relative;
+}
+
+.borrowed-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 38px;
+  background: #ffffff;
+  color: #333;
+  min-width: 320px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  padding: 15px 18px;
+  z-index: 9999;
+  max-height: 350px;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Khi menu mở */
+.borrow-menu.active .borrowed-dropdown {
+  display: block;
+}
+
+/* Từng cuốn trong danh sách */
+.borrowed-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.borrowed-item:last-child {
+  border-bottom: none;
+}
+
+.borrowed-item strong {
+  color: #004aad;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.borrowed-item strong:hover {
+  color: #0073ff;
+  text-decoration: underline;
+}
+
+.borrowed-item i {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Nút “Trả” */
+.return-btn {
+  background: #ff7675;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.return-btn:hover {
+  background: #e74c3c;
+  transform: scale(1.05);
+}
+
+/* 🪟 --- Popup hiển thị thông tin sách --- */
+.book-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: none; /* 🔹 Ẩn mặc định để không gây lỗi mờ màn hình */
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 28px 35px;
+  border-radius: 14px;
+  width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  animation: zoomInSmooth 0.4s ease;
+}
+
+/* Ảnh bìa sách */
+.popup-img {
+  width: 150px;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 2px solid #eef3fa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.popup-content h2 {
+  color: #004aad;
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.popup-content p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+}
+
+.popup-desc {
+  font-size: 15px;
+  color: #333;
+  margin-top: 10px;
+  text-align: justify;
+}
+
+/* Link đọc sách */
+.popup-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: #fff;
+  background: linear-gradient(90deg, #004aad, #0073ff);
+  padding: 9px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  transition: 0.3s;
+}
+
+.popup-link:hover {
+  background: linear-gradient(90deg, #0068ff, #004aad);
+  transform: scale(1.05);
+}
+
+/* Nút đóng popup */
+.close-popup {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  border: none;
+  background: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #666;
+  transition: 0.3s;
+}
+
+.close-popup:hover {
+  color: #000;
+  transform: scale(1.1);
+}
+
+/* 🌈 --- Hiệu ứng chuyển động --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomInSmooth {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Cuộn nhẹ nhàng bên trong dropdown */
+.borrowed-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+.borrowed-dropdown::-webkit-scrollbar-thumb {
+  background: #004aad;
+  border-radius: 5px;
+}
+.borrowed-dropdown::-webkit-scrollbar-track {
+  background: #e0e6f5;
+}
+
+/* 📖 Hiệu ứng popup mượt hơn */
+.book-popup.show {
+  display: flex;
+  animation: fadeIn 0.25s ease-in-out;
+}
+.ai-section {
+  margin-top: 25px;
+  text-align: left;
+  background: #f4f7ff;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.ai-section h3 {
+  color: #004aad;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.ai-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ai-box textarea {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  resize: none;
+  height: 60px;
+}
+
+.ai-box button {
+  background: linear-gradient(90deg, #004aad, #0073ff);
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.ai-box button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #0073ff, #004aad);
+}
+
+.ai-response {
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  min-height: 40px;
+  border: 1px solid #e0e0e0;
+}
+/* 📖 POPUP SÁCH */
+.book-popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.popup-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px 25px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+.popup-content h2 {
+  color: #004aad;
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.popup-img {
+  width: 160px;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.popup-desc {
+  color: #444;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-top: 10px;
+  text-align: justify;
+}
+
+.popup-link {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 14px;
+  background: #004aad;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.popup-link:hover {
+  background: #002d73;
+}
+
+.close-popup {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  color: #444;
+  cursor: pointer;
+}
+.borrowed-dropdown {
+  display: none;
+  position: absolute;
+  background: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  width: 320px;
+  max-height: 400px;
+  overflow-y: auto;
+  right: 0;
+  top: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+}
+
+.borrowed-dropdown.show {
+  display: block;
+}
+
+.borrowed-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.borrowed-item:hover {
+  background: #f2f2f2;
+}
+
+.return-btn {
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.return-btn:hover {
+  background: #d93636;
+}
