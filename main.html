@@ -15,7 +15,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
 
-    <!-- CSS -->
+    <!-- CSS (Đường dẫn đúng từ Root vào frontend/web/) -->
     <link rel="stylesheet" href="frontend/web/style.css" />
     <link rel="stylesheet" href="frontend/web/borrow.css" />
     <link rel="stylesheet" href="frontend/web/chatbox.css" />
@@ -33,8 +33,8 @@
             <li><a href="#Home">Trang chủ</a></li>
             <li><a href="#Intro">Giới thiệu</a></li>
             <li><a href="#Books">Sách</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="payment.html">Thanh toán</a></li>
+            <li><a href="frontend/web/about.html">About Us</a></li>
+            <li><a href="frontend/web/payment.html">Thanh toán</a></li>
             <li class="borrow-menu">
               <a href="javascript:void(0)" onclick="toggleBorrowedList()">
                 <i class="fa-solid fa-book"></i>
@@ -57,7 +57,7 @@
     <!-- HERO -->
     <section class="hero" id="Home">
       <img
-        src="./hinhanh/AI-Libraries-Cover.webp"
+        src="frontend/web/hinhanh/AI-Libraries-Cover.webp"
         alt="Thư viện AI"
         class="hero-img"
       />
@@ -109,7 +109,7 @@
 
         <div class="intro-image">
           <img
-            src="./hinhanh/ACQ_BEST_EVIDENCE_IMAGE.jpg"
+            src="frontend/web/hinhanh/ACQ_BEST_EVIDENCE_IMAGE.jpg"
             alt="Giới thiệu Thư viện AI"
           />
         </div>
@@ -119,17 +119,17 @@
     <!-- TÍNH NĂNG -->
     <section class="features">
       <div class="feature-card">
-        <img src="./hinhanh/aisearch.jpeg" alt="AI Search" />
+        <img src="frontend/web/hinhanh/aisearch.jpeg" alt="AI Search" />
         <h3>Tìm kiếm bằng AI</h3>
         <p>AI hiểu ngữ nghĩa, giúp tìm sách nhanh và chính xác hơn.</p>
       </div>
       <div class="feature-card">
-        <img src="./hinhanh/ebook.jpg" alt="Ebook" />
+        <img src="frontend/web/hinhanh/ebook.jpg" alt="Ebook" />
         <h3>Tài nguyên điện tử</h3>
         <p>Kho e-book, research paper và tạp chí học thuật đa dạng.</p>
       </div>
       <div class="feature-card">
-        <img src="./hinhanh/tudong.jpg" alt="Borrow system" />
+        <img src="frontend/web/hinhanh/tudong.jpg" alt="Borrow system" />
         <h3>Mượn – Trả tự động</h3>
         <p>Tự động ghi nhận mượn – trả bằng mã QR và AI nhận diện.</p>
       </div>
@@ -160,14 +160,11 @@
 
     <!-- SCRIPT CHÍNH -->
     <script>
-      // 🔑 Khai báo Google Books API Key
       const GOOGLE_BOOKS_API_KEY = "AIzaSyBl-EN3DO9qhzbfRQ2vW_Xyt0IP3LdR68I";
-
       const ONE_DAY_MS = 24 * 60 * 60 * 1000;
       const THIRTY_DAYS_MS = 30 * ONE_DAY_MS;
       let borrowedBooks = [];
 
-      /* 🔎 Tìm kiếm qua Google Books API (Đã thêm API Key) */
       async function searchBooks() {
         const keyword = document.getElementById("keyword").value.trim();
         const resultsDiv = document.getElementById("results");
@@ -224,12 +221,10 @@
               <button class="borrow-btn">📘 Mượn sách</button>
             `;
 
-            // Mở chi tiết khi click cả khung
             div.addEventListener("click", () => {
               openBookDetails(title, authors, thumbnail, info.previewLink);
             });
 
-            // Mượn sách
             const borrowBtn = div.querySelector(".borrow-btn");
             borrowBtn.addEventListener("click", (e) => {
               e.stopPropagation();
@@ -250,7 +245,6 @@
         }
       }
 
-      /* 📘 MƯỢN SÁCH TỪ GOOGLE BOOKS */
       async function borrowBookFromGoogle(book) {
         try {
           const res = await fetch("/borrow", {
@@ -270,7 +264,6 @@
 
           if (data.status === "success") {
             const tempBookId = data.book_id || Date.now();
-            
             borrowedBooks.push({
               book_id: tempBookId,
               title: book.title,
@@ -289,7 +282,6 @@
         }
       }
 
-      /* 📗 TRẢ SÁCH */
       async function returnBook(book_id) {
         if (!confirm("Bạn có chắc muốn trả sách này không?")) return;
 
@@ -316,17 +308,14 @@
         }
       }
 
-      /* 📖 XEM CHI TIẾT SÁCH (Đã thêm API Key) */
       async function openBookDetails(title, author, thumbnail, previewLink) {
         const popup = document.getElementById("bookPopup");
         popup.style.display = "flex";
         document.getElementById("popupTitle").textContent = title;
-        document.getElementById("popupAuthor").textContent =
-          "Tác giả: " + author;
+        document.getElementById("popupAuthor").textContent = "Tác giả: " + author;
         document.getElementById("popupThumbnail").src =
           thumbnail || "https://via.placeholder.com/150x200?text=No+Cover";
-        document.getElementById("popupDescription").textContent =
-          "🔎 Đang tải mô tả...";
+        document.getElementById("popupDescription").textContent = "🔎 Đang tải mô tả...";
 
         try {
           const res = await fetch(
@@ -337,9 +326,7 @@
           const data = await res.json();
           const info = data.items?.[0]?.volumeInfo;
           document.getElementById("popupPublished").textContent =
-            info?.publishedDate
-              ? "📅 Ngày xuất bản: " + info.publishedDate
-              : "";
+            info?.publishedDate ? "📅 Ngày xuất bản: " + info.publishedDate : "";
           document.getElementById("popupDescription").textContent =
             info?.description || "Không có mô tả chi tiết cho cuốn sách này.";
           const readLink = document.getElementById("popupReadLink");
@@ -356,7 +343,6 @@
         document.getElementById("bookPopup").style.display = "none";
       }
 
-      /* 📋 CẬP NHẬT DANH SÁCH ĐÃ MƯỢN */
       async function updateBorrowedDropdown() {
         const dropdown = document.getElementById("borrowedDropdown");
         const count = document.getElementById("borrowCount");
@@ -407,7 +393,7 @@
 
                 const imgSrc = b.image && b.image.startsWith("http")
                     ? b.image
-                    : "./hinhanh/no-cover.png";
+                    : "frontend/web/hinhanh/no-cover.png";
 
                 return `
                     <div class="borrowed-item">
@@ -423,13 +409,11 @@
             .join("");
       }
 
-      /* 📜 ẨN/HIỆN DANH SÁCH ĐÃ MƯỢN */
       function toggleBorrowedList() {
         const dropdown = document.getElementById("borrowedDropdown");
         dropdown.classList.toggle("show");
       }
 
-      /* ⏰ KIỂM TRA SÁCH QUÁ HẠN */
       function checkOverdueBooks() {
         const now = Date.now();
         borrowedBooks.forEach((book) => {
@@ -442,11 +426,10 @@
       /* 🚪 ĐĂNG XUẤT */
       function logout() {
         localStorage.removeItem("borrowedBooks");
-        window.location.href = "SignUp_LogIn_Form.html";
+        localStorage.removeItem("loggedInUser");
         window.location.href = "index.html";
       }
 
-      /* 🚀 KHỞI TẠO */
       window.addEventListener("load", () => {
         const stored = localStorage.getItem("borrowedBooks");
         if (stored) {
@@ -469,7 +452,6 @@
         }, 60000);
       });
 
-      // Đóng dropdown khi click ra ngoài
       document.addEventListener("click", function (event) {
         const dropdown = document.getElementById("borrowedDropdown");
         const borrowMenu = document.querySelector(".borrow-menu");
@@ -537,25 +519,17 @@
           chatMessages.scrollTop = chatMessages.scrollHeight;
 
           try {
-              console.log("📡 Đang gọi chatbot với message:", message);
-              
               const response = await fetch("/chat", {
                   method: "POST",
-                  headers: { 
-                      "Content-Type": "application/json"
-                  },
+                  headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ message: message })
               });
 
-              console.log("📡 Response status:", response.status);
-              
               if (!response.ok) {
                   throw new Error(`HTTP ${response.status}: ${response.statusText}`);
               }
 
               const data = await response.json();
-              console.log("🤖 Chatbot response:", data);
-              
               if (data.reply) {
                   botDiv.textContent = data.reply;
               } else if (data.error) {
@@ -563,7 +537,6 @@
               } else {
                   botDiv.textContent = "⚠️ Không có phản hồi";
               }
-              
           } catch (error) {
               console.error("❌ Lỗi chatbot:", error);
               botDiv.innerHTML = `
